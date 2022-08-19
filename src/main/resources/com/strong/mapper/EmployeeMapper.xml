@@ -4,6 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.strong.mapper.EmployeeMapper">
 
+
+    <!--添加员工-->
+    <insert id="save">
+        insert into employee(id, username, name, password, phone, sex, id_number, status, create_time, update_time)
+        values (#{id}, #{username}, #{name},#{password} #{phone}, #{sex}, #{idNumber}, #{status}, #{createTime}, #{updateTime});
+
+
+    </insert>
+
     <!--    依据用户名来判断登录条件-->
     <select id="selectByUsername" resultType="com.strong.entity.Employee">
         select *
