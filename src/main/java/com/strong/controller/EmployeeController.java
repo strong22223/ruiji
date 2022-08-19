@@ -92,8 +92,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/page")
-    public R<Page> list(int page, int pageSize, String name) {
-        log.info("page=>{},pageSize->>{},name->>{}", page, pageSize, name);
+    public R<Page> page(int page, int pageSize, String name) {
+
         //构造分页构造器
         Page pageInfo = new Page(page, pageSize);
         //构造调价构造器
@@ -103,6 +103,8 @@ public class EmployeeController {
         lambdaQueryWrapper.orderByDesc(Employee::getUpdateTime);
         //执行查询
         employeeService.page(pageInfo, lambdaQueryWrapper);
+
+        log.info("page=>{},pageSize->>{},name->>{}", page, pageSize, name);
         return R.success(pageInfo);
     }
 }
