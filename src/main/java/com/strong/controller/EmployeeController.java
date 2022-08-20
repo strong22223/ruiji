@@ -91,6 +91,14 @@ public class EmployeeController {
         return R.success("添加成功");
     }
 
+    /**
+     * 分页查询
+     *
+     * @param page
+     * @param pageSize
+     * @param name
+     * @return
+     */
     @GetMapping("/page")
     public R<Page> page(int page, int pageSize, String name) {
 
@@ -106,5 +114,33 @@ public class EmployeeController {
 
         log.info("page=>{},pageSize->>{},name->>{}", page, pageSize, name);
         return R.success(pageInfo);
+    }
+
+    @PutMapping
+    public R<String> update(HttpServletRequest request, @RequestBody Employee employee) {
+        //1.首先测试获取用户的信息
+        log.info("更新的用户信息->>{}", employee);
+        //获取修改信息的用户的信息
+        Long emId = (Long) request.getSession().getAttribute("employee");
+        //更新修改时间
+
+        employee.setUpdateUser(emId);
+        employee.setUpdateTime(LocalDateTime.now());
+        //调用Service更新数据
+        employeeService.updateById(employee);
+        return R.success("更新用户信息成功");
+    }
+
+    /**
+     * 根据用户 的id 来查询信息
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public R<Employee> getById(@PathVariable Long id) {
+        log.info("根据id查询用户的信息->>{}", id);
+        Employee employee = employeeService.getById(id);
+        return R.success(employee);
     }
 }

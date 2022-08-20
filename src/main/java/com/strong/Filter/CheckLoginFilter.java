@@ -2,6 +2,7 @@ package com.strong.Filter;
 
 
 import com.alibaba.fastjson.JSON;
+import com.strong.common.BaseContext;
 import com.strong.common.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -45,9 +46,11 @@ public class CheckLoginFilter implements Filter {
             return;
         }
         //4.判断登录条件,如果已经登录则放行
-        Object employee = request.getSession().getAttribute("employee");
+        Long employee =(Long) request.getSession().getAttribute("employee");
         if (employee != null) {
             log.info("用户已经登录{},用户id为->>{}", requestURI, employee);
+            //在线程中设置id
+            BaseContext.setCurrentId(employee);
 
             filterChain.doFilter(request, response);
             return;
