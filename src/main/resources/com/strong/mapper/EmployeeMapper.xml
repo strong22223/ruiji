@@ -8,7 +8,8 @@
     <!--添加员工-->
     <insert id="save">
         insert into employee(id, username, name, password, phone, sex, id_number, status, create_time, update_time)
-        values (#{id}, #{username}, #{name},#{password} #{phone}, #{sex}, #{idNumber}, #{status}, #{createTime}, #{updateTime});
+        values (#{id}, #{username}, #{name}, #{password} #{phone}, #{sex}, #{idNumber}, #{status}, #{createTime},
+                #{updateTime});
 
 
     </insert>

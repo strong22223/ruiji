@@ -29,7 +29,7 @@ public class CheckLoginFilter implements Filter {
         //1.获取请求路径 定义不需要拦截的资源
 //            并且将有些路径直接放行
         String requestURI = request.getRequestURI(); //backend/index.html
-        log.info("拦截请求路径->>{}", requestURI);
+//        log.info("拦截请求路径->>{}", requestURI);
 
         String[] urls = new String[]{
                 "/employee/login",
@@ -41,12 +41,12 @@ public class CheckLoginFilter implements Filter {
         boolean check = check(urls, requestURI);
         //3.如果不需要处理,则直接放行
         if (check) {
-            log.info("本次请求不需要处理->>{}", requestURI);
+//            log.info("本次请求不需要处理->>{}", requestURI);
             filterChain.doFilter(request, response);
             return;
         }
         //4.判断登录条件,如果已经登录则放行
-        Long employee =(Long) request.getSession().getAttribute("employee");
+        Long employee = (Long) request.getSession().getAttribute("employee");
         if (employee != null) {
             log.info("用户已经登录{},用户id为->>{}", requestURI, employee);
             //在线程中设置id
@@ -56,7 +56,7 @@ public class CheckLoginFilter implements Filter {
             return;
         }
         //5.如果没有登录,就向客户端响应请求
-        log.info("用户未登录->>");
+//        log.info("用户未登录->>");
         response.getWriter().write(JSON.toJSONString(R.error("NOTLOGIN")));
         //重定向
         //1.设置响应状态码 302

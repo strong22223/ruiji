@@ -1,9 +1,9 @@
 package com.strong.entity;
-//
-//import com.baomidou.mybatisplus.annotation.FieldFill;
-//import com.baomidou.mybatisplus.annotation.IdType;
-//import com.baomidou.mybatisplus.annotation.TableField;
-//import com.baomidou.mybatisplus.annotation.TableId;
+
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -32,24 +32,24 @@ public class Category implements Serializable {
     private Integer sort;
 
 
-//    //创建时间
-//    @TableField(fill = FieldFill.INSERT)
-//    private LocalDateTime createTime;
-//
-//
-//    //更新时间
-//    @TableField(fill = FieldFill.INSERT_UPDATE)
-//    private LocalDateTime updateTime;
-//
-//
-//    //创建人
-//    @TableField(fill = FieldFill.INSERT)
-//    private Long createUser;
-//
-//
-//    //修改人
-//    @TableField(fill = FieldFill.INSERT_UPDATE)
-//    private Long updateUser;
+    //创建时间
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+
+
+    //更新时间
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
+
+
+    //创建人
+    @TableField(fill = FieldFill.INSERT)
+    private Long createUser;
+
+
+    //修改人
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Long updateUser;
 
 
     //是否删除
