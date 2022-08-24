@@ -70,7 +70,7 @@ public class commonController {
 
 
                 outputStream.write(bytes, 0, len);
-                log.info("长度->>{}",len);
+//                log.info("长度->>{}",len);
                 outputStream.flush();
             }
 

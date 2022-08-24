@@ -19,7 +19,7 @@ public class DishFlavor implements Serializable {
     private Long id;
 
 
-    //菜品id
+    //菜品id 关联的具体的菜品
     private Long dishId;
 
 
