@@ -20,6 +20,9 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
     @Autowired
     private DishFlavorServiceImpl dishFlavorService;
 
+    @Autowired
+    private DishMapper dishMapper;
+
     /**
      * 新增菜品,同时保存对应的口味 ,将口味和菜品关联
      *
@@ -64,11 +67,11 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
         this.updateById(dishDto);
 
         //重新获取口味的信息
-            //首先删除
+        //首先删除
         LambdaQueryWrapper<DishFlavor> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(DishFlavor::getDishId,dishDto.getId());
+        queryWrapper.eq(DishFlavor::getDishId, dishDto.getId());
         dishFlavorService.remove(queryWrapper);
-            //其次直接更新
+        //其次直接更新
         Long dishId = dishDto.getId();
         //封装dishFlavor数据
         for (DishFlavor flavor : dishDto.getFlavors()) {
@@ -77,6 +80,12 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
             dishFlavorService.save(flavor);
 
         }
+    }
+
+    @Override
+    public List<DishDto> selectAllByCategoryId(Long categoryId) {
+
+        return dishMapper.selectAllByCategoryId(categoryId);
     }
 
 }

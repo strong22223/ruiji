@@ -1,14 +1,19 @@
 package com.strong.service;
 
+import com.strong.dto.DishDto;
 import com.strong.entity.Employee;
+import com.strong.mapper.DishMapper;
 import com.strong.mapper.EmployeeMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Wrapper;
+import java.util.List;
 
 @SpringBootTest
+@Slf4j
 public class Service {
 
 
@@ -17,6 +22,8 @@ public class Service {
 
     @Autowired
     EmployeeMapper employeeMapper;
+    @Autowired
+    DishMapper dishMapper;
     /**
      * 测试单个查询
      */
@@ -43,13 +50,7 @@ public class Service {
 
     @Test
     void saveTest() {
-        Employee em = new Employee();
-        em.setName("张三");
-         em.setPhone("17793391748");
-        em.setUsername("wangzhi");
-        em.setSex("1");
-        em.setIdNumber("399483722888393847");
-
-        employeeService.save(em);
+        List<DishDto> dishDtoList = dishMapper.selectAllByCategoryId(1397844263642378242L);
+        log.info(String.valueOf(dishDtoList));
     }
 }

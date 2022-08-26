@@ -6,6 +6,9 @@ import com.strong.entity.SetmealDish;
 import lombok.Data;
 import java.util.List;
 
+/**
+ * 套餐导入
+ */
 @Data
 public class SetmealDto extends Setmeal {
 

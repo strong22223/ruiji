@@ -19,8 +19,8 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/dish")
-public class DishController {
+@RequestMapping("/setMeal")
+public class SetMealController {
 
     @Autowired
     private DishFlavorService dishFlavorService;
@@ -97,12 +97,5 @@ public class DishController {
         dishService.updateWithDishFlavor(dishDto);
 
         return R.success("在修改成功");
-    }
-
-    @GetMapping("/list")
-    public R<List<DishDto>> list(Long categoryId) {
-        List<DishDto> dishDtoList = dishService.selectAllByCategoryId(categoryId);
-
-        return R.success(dishDtoList);
     }
 }
