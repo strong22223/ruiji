@@ -1,7 +1,7 @@
 package com.strong.entity;
 
-//import com.baomidou.mybatisplus.annotation.FieldFill;
-//import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -40,20 +40,20 @@ public class SetmealDish implements Serializable {
     private Integer sort;
 
 //
-//    @TableField(fill = FieldFill.INSERT)
-//    private LocalDateTime createTime;
-//
-//
-//    @TableField(fill = FieldFill.INSERT_UPDATE)
-//    private LocalDateTime updateTime;
-//
-//
-//    @TableField(fill = FieldFill.INSERT)
-//    private Long createUser;
-//
-//
-//    @TableField(fill = FieldFill.INSERT_UPDATE)
-//    private Long updateUser;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+
+
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
+
+
+    @TableField(fill = FieldFill.INSERT)
+    private Long createUser;
+
+
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Long updateUser;
 
 
     //是否删除

@@ -1,14 +1,13 @@
 package com.strong.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.strong.common.R;
-import com.strong.dto.DishDto;
-import com.strong.entity.Dish;
+import com.strong.dto.SetmealDto;
+import com.strong.entity.Category;
+import com.strong.entity.Setmeal;
 import com.strong.service.CategoryService;
-import com.strong.service.DishFlavorService;
-import com.strong.service.DishService;
+import com.strong.service.SetMealService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,83 +18,62 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/setMeal")
+@RequestMapping("/setmeal")
 public class SetMealController {
 
     @Autowired
-    private DishFlavorService dishFlavorService;
+    private SetMealService setMealService;
 
-    @Autowired
-    private DishService dishService;
     @Autowired
     private CategoryService categoryService;
 
+    /**
+     * 添套餐管理 - 添加套餐
+     *
+     * @param setmealDto
+     * @return
+     */
     @PostMapping
-    public R<String> save(@RequestBody DishDto dishDto) {
+    public R<String> save(@RequestBody SetmealDto setmealDto) {
+        log.info("封装的数据->>{}", setmealDto);
+        setMealService.saveWithDishes(setmealDto);
 
-        log.info("数据->>{}", dishDto);
-        dishService.saveWithDishFlavor(dishDto);
-        return R.success("新增菜品成功!");
-
+        return R.success("添加套餐成功.");
     }
 
     /**
-     * 分页请求
+     * 分页查询
      *
      * @param page
      * @param pageSize
      * @param name
      * @return
      */
-
     @GetMapping("/page")
     public R<Page> page(int page, int pageSize, String name) {
-        //分页构造器
-        Page pageInfo = new Page(page, pageSize);
-        List<Dish> dishList;
 
-        //条件构造器
-        LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.like(name != null, Dish::getName, name);
-        queryWrapper.orderByDesc(Dish::getUpdateTime);
-        //查询出来分页的数据
-        Page list = dishService.page(pageInfo, queryWrapper);
-        //将所有查询出的数据复制给 dishList
-        dishList = list.getRecords();
-        List<DishDto> dishDtoList = new ArrayList<>();
 
-        for (Dish dish : dishList) {
-            // 实现拷贝
-            DishDto dishDto = new DishDto();
-            BeanUtils.copyProperties(dish, dishDto);
-            //首先获取categoryId
-            Long categoryId = dish.getCategoryId();
-            //查询categoryId 对应的名称 赋值给 每一个dishDto
 
-            dishDto.setCategoryName(
-                    categoryService.getById(categoryId).getName()
-            );
-            //添加处理过的数据
-            dishDtoList.add(dishDto);
-        }
-        pageInfo.setRecords(dishDtoList);
-        log.info("封装出来处理过的集合->>{}", dishList);
 
-        return R.success(pageInfo);
-    }
-
-    //回显数据
-    @GetMapping("/{id}")
-    public R<DishDto> get(@PathVariable long id) {
-        DishDto dishDto = dishService.getByIdWithDishFlavor(id);
-
-        return R.success(dishDto);
-    }
-
-    @PutMapping
-    public R<String> update(@RequestBody DishDto dishDto) {
-        dishService.updateWithDishFlavor(dishDto);
-
-        return R.success("在修改成功");
+//        Page<Setmeal> setmealPage = new Page<>();
+//        List<Setmeal> pageList = setMealService.page(page, pageSize, name);
+//
+//
+//        ArrayList<SetmealDto> setmealDtos = new ArrayList<>();
+//        // 在这里面设置套餐的分类
+//        for (Setmeal setmeal : pageList) {
+//            //复制数据
+//            SetmealDto setmealDto = new SetmealDto();
+//            BeanUtils.copyProperties(setmeal, setmealDto);
+//            //更新菜品的名称
+//            Long categoryId = setmeal.getCategoryId();
+//            Category category = categoryService.getById(categoryId);
+//            if (category != null) {
+//                setmealDto.setCategoryName(category.getName());
+//            }
+//            setmealDtos.add(setmealDto);
+//        }
+//        setmealPage.setRecords(pageList);
+//        return R.success(setmealPage);
     }
 }

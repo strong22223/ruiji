@@ -99,9 +99,19 @@ public class DishController {
         return R.success("在修改成功");
     }
 
+    /**
+     * 改变当前菜品的起售状态
+     * @param dish
+     */
+//    public  void status (Dish dish){
+//        Long categoryId = dish.getCategoryId();
+//        dishService.updateStatus(dish);
+//
+//    }
+
     @GetMapping("/list")
-    public R<List<DishDto>> list(Long categoryId) {
-        List<DishDto> dishDtoList = dishService.selectAllByCategoryId(categoryId);
+    public R<List<DishDto>> list(Dish dish) {
+        List<DishDto> dishDtoList = dishService.selectAllByCategoryId(dish);
 
         return R.success(dishDtoList);
     }

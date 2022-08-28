@@ -23,8 +23,14 @@ public interface DishService extends IService<Dish> {
     /**
      * 依据categoryId来查询菜品分类下关联的所有的Dish
      *
-     * @param categoryId
+     * @param dish
      * @return
      */
-    List<DishDto> selectAllByCategoryId(Long categoryId);
+    List<DishDto> selectAllByCategoryId(Dish dish);
+
+    /**
+     * 改变当前菜品的销售信息, 是否将当前菜品起售
+     * @param dish
+     */
+//    void updateStatus(Dish dish);
 }

@@ -83,9 +83,14 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
     }
 
     @Override
-    public List<DishDto> selectAllByCategoryId(Long categoryId) {
+    public List<DishDto> selectAllByCategoryId(Dish dish) {
 
-        return dishMapper.selectAllByCategoryId(categoryId);
+        return dishMapper.selectAllByCategoryId(dish);
     }
+
+//    @Override
+//    public void updateStatus(Dish dish) {
+//        dishMapper.update
+//    }
 
 }

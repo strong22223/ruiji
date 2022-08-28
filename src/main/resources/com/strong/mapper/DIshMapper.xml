@@ -4,10 +4,24 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.strong.mapper.DishMapper">
 
+    <!--查询菜品的数据
+        1.首先考虑当前categoryId下是否关联了菜品->>动态Sql的方式
+        2.其次在依据sort 升序的时间来排序,update_time来降序排列
+        3.一定需要确定当前菜品是否 起售->>即 菜品的status 为1
 
+
+-->
     <select id="selectAllByCategoryId" resultType="com.strong.dto.DishDto">
         select *
         from dish
-        where category_id = #{categoryId}
+        <if test="categoryId !=null">
+            where
+            category_id = #{categoryId}
+        </if>
+        and status=1
+        order by sort asc, update_time desc
+
     </select>
+
+
 </mapper>

@@ -8,4 +8,13 @@
     <insert id="save">
 
     </insert>
+    <select id="page" resultType="com.strong.entity.Setmeal">
+        select *
+        from setmeal
+        <if test="name!=null">
+            where name like #{name}
+        </if>
+        limit #{begin},#{end}
+
+    </select>
 </mapper>
