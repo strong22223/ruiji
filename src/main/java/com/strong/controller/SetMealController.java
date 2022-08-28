@@ -7,6 +7,7 @@ import com.strong.dto.SetmealDto;
 import com.strong.entity.Category;
 import com.strong.entity.Setmeal;
 import com.strong.service.CategoryService;
+import com.strong.service.SetMealDishService;
 import com.strong.service.SetMealService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -26,6 +27,9 @@ public class SetMealController {
 
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private SetMealDishService setMealDishService;
+
 
     /**
      * 添套餐管理 - 添加套餐
@@ -53,27 +57,47 @@ public class SetMealController {
     public R<Page> page(int page, int pageSize, String name) {
 
 
+        //获取SetMeal(套餐)数据的集合
+        List<Setmeal> pageList = setMealService.page(page, pageSize, name);
+        Page<SetmealDto> setmealDtoPage = new Page<>();
+        //设置一个list集合来存储setRecords()
+        List<SetmealDto> setmealDishes = new ArrayList<>();
 
+        //将所偶有查询出来的套餐信息和菜品信息\套餐名称对应起来
+        for (Setmeal setmeal : pageList) {
+            //获取套餐分类的名称
+            Long categoryId = setmeal.getCategoryId();
+            Category byId = categoryService.getById(categoryId);
 
-//        Page<Setmeal> setmealPage = new Page<>();
-//        List<Setmeal> pageList = setMealService.page(page, pageSize, name);
-//
-//
-//        ArrayList<SetmealDto> setmealDtos = new ArrayList<>();
-//        // 在这里面设置套餐的分类
-//        for (Setmeal setmeal : pageList) {
-//            //复制数据
-//            SetmealDto setmealDto = new SetmealDto();
-//            BeanUtils.copyProperties(setmeal, setmealDto);
-//            //更新菜品的名称
-//            Long categoryId = setmeal.getCategoryId();
-//            Category category = categoryService.getById(categoryId);
-//            if (category != null) {
-//                setmealDto.setCategoryName(category.getName());
-//            }
-//            setmealDtos.add(setmealDto);
-//        }
-//        setmealPage.setRecords(pageList);
-//        return R.success(setmealPage);
+            //将
+            SetmealDto setmealDto = new SetmealDto();
+            BeanUtils.copyProperties(setmeal, setmealDto);
+            //设置套餐名称
+            setmealDto.setCategoryName(byId.getName());
+            setmealDishes.add(setmealDto);
+            //setMealDish是否用于封装
+            //Long setmealId = setmeal.getId();
+
+        }
+        //存储setRecords()
+        setmealDtoPage.setRecords(setmealDishes);
+        // 在这里面设置套餐的分类
+        return R.success(setmealDtoPage);
+
     }
+
+    /**
+     * 删除套餐的信息
+     */
+    @DeleteMapping
+    public R<String> deleteSetmealById(@RequestParam List<Long> ids) {
+        log.info("参数->>{}", ids);
+        for (long id : ids) {
+//            log.info("参数->>{}", id);
+        }
+
+        return null
+                ;
+    }
+
 }
