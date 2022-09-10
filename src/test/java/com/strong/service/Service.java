@@ -65,9 +65,13 @@ public class Service {
 
     @Test
     void SetMealDishPageTest() {
+//
+//        List<Setmeal> page = setMealMapper.page(0, 3, "%A%");
+//        log.info("分页测试数据->>{}",page);
+        String s = new String(new Integer(1).toString());
+        System.out.printf("s");
 
-        List<Setmeal> page = setMealMapper.page(0, 3, "%A%");
-        log.info("分页测试数据->>{}",page);
+
     }
 
 }
